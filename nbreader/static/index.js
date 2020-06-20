@@ -1,12 +1,23 @@
 /*
-*  Author: James Martin (jamesml@cs.unc.edu)
+* Original Author: James Martin (jamesml@cs.unc.edu)
+* https://jameslmartin.github.io/jupyter-a11y/
+* https://github.com/jameslmartin/jupyter-a11y/
+* https://raw.githubusercontent.com/jameslmartin/jupyter-a11y/master/nbreader.js
 */
 
-define(function() {
+define(['base/js/namespace', 'base/js/events'], function(Jupyter, events) {
   "use strict";
 
-  var Jupyter = require('base/js/namespace');
-  var events = require('base/js/events');
+  var mod_name = 'NbReader';
+  var log_prefix = '[' + mod_name + ']';
+
+  // defaults, overridden by server's config
+  var options = {
+    heartbeat: false,
+    heartbeat_delay_in_s: 5,
+  };
+
+  var pulse = 1000 * options.heartbeat_delay_in_s;
 
   // Metadata
   var cell_ids = [];
@@ -81,7 +92,7 @@ define(function() {
     events.on("kernel_busy.Kernel", function() {
       playHum();
     })
-
+/*
     events.on("notebook_saved.Notebook", function() {
       var m = "Notebook saved.";
       var msg = new SpeechSynthesisUtterance(m);
@@ -107,6 +118,7 @@ define(function() {
       msg.rate = 3;
       speechSynthesis.speak(msg);
     })
+*/
 
     // This function provides navigational cues
     events.on("selected_cell_type_changed.Notebook", function() {
@@ -441,7 +453,22 @@ define(function() {
     });
   }
 
+  Jupyter.notebook.config.loaded.then(function on_config_loaded() {
+    $.extend(true, options, Jupyter.notebook.config.data[mod_name]);
+    pulse = 1000 * options.heartbeat_delay_in_s; //in seconds
+  }, function on_config_load_error(reason) {
+      console.warn(log_prefix, 'Using defaults after error loading config:', reason);
+  }).then(function do_stuff_with_config() {
+      events.on("notebook_loaded.Notebook", on_notebook_loaded);
+      if (Jupyter.notebook !== undefined && Jupyter.notebook._fully_loaded) {
+          //on_notebook_loaded();
+      }
+  }).catch(function on_error(reason) {
+      console.error(log_prefix, 'Error:', reason);
+  });
+
   return {
-    load_ipython_extension: load_extension
+    load_ipython_extension: load_extension,
+    load_jupyter_extension: load_extension
   }
 })

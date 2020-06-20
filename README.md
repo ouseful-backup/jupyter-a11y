@@ -1,24 +1,33 @@
-# Jupyter a11y Project
-An accessibility extension for the Jupyter project
+# `Jupyter-a11y` Project `nbreader`
 
-Click to view details of this project on [GitHub Pages](http://jameslmartin.github.io/jupyter-a11y/).
+An accessibility extension for Jupyter notebooks: add audible cues and feedback to support notebook activity.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ouseful-backup/jupyter-a11y/packaged)
+
+
+Orignally developed here: http://jameslmartin.github.io/jupyter-a11y/ https://github.com/jameslmartin/jupyter-a11y/
+
+Keyboard shortcuts for use in (command mode / edit mode):
+
+- background hum when kernel busy;
+- identify command / edit mode (Ctrl-Shift-M / Ctrl-Shift-M);
+- the mode is annoucned when you click in a cell but it seems erratic? maybe better to speak the type of cell and which one?
+- identify cell location (Shift-G / Ctrl-Shift-G); eg "cell number 4 of 45"; [could maybe identify code or markdown cell?];
+- read cell contents (Shift-R / Ctrl-Shift-R) [identifies cell type and number of lines; lines don't seem to be read correctly? Seems like one line at a time is read and things queue up somewhere?]
+
 
 ### Installation
-Include the following code in your notebook to download the extension to your `nbextensions` folder:
-```python
-import notebook.nbextensions
-nbreader = 'https://raw.githubusercontent.com/jameslmartin/jupyter-a11y/master/nbreader.js'
-notebook.nbextensions.install_nbextension(nbreader, user=True)
+
+Install via:
+
+`pip install --upgrade git+https://github.com/ouseful-backup/jupyter-a11y.git@packaged`
+
+The extension should be automatically installed and enabled.
+
+If you need to do things manually:
+
 ```
-Then run the following JavaScript cell using magics to load the `reader` extension:
-```python
-%%javascript
-Jupyter.utils.load_extensions('nbreader')
-```
-To persist `nbreader` across notebooks, modify your Jupyter configuration file as follows:
-```python'
-from notebook.services.config import ConfigManager
-ip = get_ipython()
-cm = ConfigManager(parent=ip, profile_dir=ip.profile_dir.location)
-cm.update('notebook', {"load_extensions": {"nbreader": True}})
+jupyter nbextension uninstall nbreader
+jupyter nbextension install nbreader --user
+jupyter nbextension enable nbreader/index
 ```
