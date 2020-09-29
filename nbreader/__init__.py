@@ -9,5 +9,6 @@ def _jupyter_nbextension_paths():
                  dest="nbreader",
                  require="nbreader/index")]
 
-def load_jupyter_server_extension(nbapp):
-    nbapp.log.info("nbreader enabled!")
+# Do not auto enable
+#def load_jupyter_server_extension(nbapp):
+#    nbapp.log.info("nbreader enabled!")
