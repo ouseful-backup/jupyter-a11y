@@ -5,7 +5,11 @@ An accessibility extension for Jupyter notebooks: add audible cues and feedback 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ouseful-backup/jupyter-a11y/packaged)
 
 
-Orignally developed here: http://jameslmartin.github.io/jupyter-a11y/ https://github.com/jameslmartin/jupyter-a11y/
+Originally developed here: http://jameslmartin.github.io/jupyter-a11y/ https://github.com/jameslmartin/jupyter-a11y/
+
+Installed as extension: `nbreader`
+
+![](.images/Nbextensions_Configuration-panel.png)
 
 Keyboard shortcuts for use in (command mode / edit mode):
 
