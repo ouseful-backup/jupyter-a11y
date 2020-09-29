@@ -1,0 +1,2 @@
+# enable in binder
+jupyter nbextension enable nbreader/index

@@ -26,7 +26,7 @@ Install via:
 
 `pip install --upgrade git+https://github.com/ouseful-backup/jupyter-a11y.git@packaged`
 
-The extension should be automatically installed and enabled.
+The extension should be automatically installed but not enabled. Enable it from the notebook extensions configurator. *The extension is pre-enabled when this repo is run using Binder.*
 
 If you need to do things manually:
 
