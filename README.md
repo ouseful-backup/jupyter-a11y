@@ -31,3 +31,10 @@ jupyter nbextension uninstall nbreader
 jupyter nbextension install nbreader --user
 jupyter nbextension enable nbreader/index
 ```
+
+To disable the extension:
+
+```
+jupyter nbextension disable nbreader/index
+
+```
